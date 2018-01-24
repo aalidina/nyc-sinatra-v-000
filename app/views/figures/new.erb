@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <form class="" action="" method="post">
+    <h2>Create New Figure</h2>
+    <form action="/figure" method="post">
+
       <label for="figure[name]"></label>
-      <input type="text" name="figure[name]" value="Figure Name"> <br>
+      <input type="text" name="figure[name]" value="Figure Name" id="figure_name"> <br>
+
       <label for="figure[title_ids]"></label>
       <input type="text" name="figure[title_ids][]" value="Title ID"><br>
       <label for="figure[landmark_ids]"></label>
@@ -18,5 +14,3 @@
       <input type="text" name="title[name]" value="Title Name">
       <input type="submit" name="submit" value="Submit">
     </form>
-  </body>
-</html>
