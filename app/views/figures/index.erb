@@ -1,0 +1,5 @@
+<form class="" action="" method="post">
+  <% @figure.each do |figure| %>
+    <a href="/figure/<%=figure.id%>"><%=figure.name%></a>
+  <%end%>
+</form>
