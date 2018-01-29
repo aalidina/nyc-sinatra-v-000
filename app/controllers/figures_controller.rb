@@ -10,7 +10,7 @@ class FiguresController < ApplicationController
 
   post '/figures' do
 
-    @figures = Figure.create(params[:figure])
+    @figures = Figure.create(params["figure"])
 
     if !params["title"]["name"].empty?
       @figures.titles << Title.create(params["title"])
@@ -22,17 +22,21 @@ class FiguresController < ApplicationController
 
     @figures.save
 
-    redirect to "/figures/#{@figure.id}"
-  end
-
-  get '/figures/:id/edit' do
-    @figure = Figure.find(params[:id])
-    erb :'figures/edit'
+    redirect to "/figures/#{@figures.id}"
   end
 
   get '/figures/:id' do
-    @figure = Figure.find(params[:id])
+    @figures = Figure.find(params[:id])
     erb :'figures/show'
   end
 
+  get '/figures/:id/edit' do
+    @figures = Figure.find(params[:id])
+    erb :'figures/edit'
+  end
+
+
+
 end
+
+#rspec ./spec/controllers/figures_controller_spec.rb --fail-fast
