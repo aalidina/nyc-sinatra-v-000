@@ -2,6 +2,7 @@ require 'pry'
 class LandmarksController < ApplicationController
 
   get '/landmarks' do
+    @landmark = Landmark.all
     erb :'/landmarks/index'
   end
 
