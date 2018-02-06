@@ -2,7 +2,7 @@ require 'pry'
 class LandmarksController < ApplicationController
 
   get '/landmarks' do
-    erb :'/landmarks'
+    erb :'/landmarks/index'
   end
 
   get '/landmarks/new' do
@@ -10,14 +10,34 @@ class LandmarksController < ApplicationController
   end
 
   post '/landmarks' do
-    @landmarks = Landmark.create(params[:landmark])
-
-    if !params["landmark"]["name"].empty?
-      @figures.landmarks << Landmark.create(name: params["name"])
+    @landmark = Landmark.create(params["landmark"])
+    if !params["figure"]["name"].empty?
+      @landmark.figure = Figure.create(params["figure"])
     end
-    binding.pry
+    
+     redirect "/landmarks/#{@landmark.id}"
+  end
+
+  get '/landmarks/:id' do
+    @landmark = Landmark.find(params[:id])
+    erb :'/landmarks/show'
+  end
+
+  get '/landmarks/:id/edit' do
+    @landmark = Landmark.find(params[:id])
+    erb :'/landmarks/edit'
+  end
+
+  post '/landmarks/:id' do
+    @landmark = Landmark.find(params[:id])
+
+    @landmark.name = params["landmark"]["name"]
+    @landmark.year_completed = params["landmark"]["year_completed"]
+    @landmark.save
+
+    redirect "/landmarks/#{@landmark.id}"
   end
 end
 
 
-# rspec ./spec/controllers/models/figures_controller_spec.rb --fail-fast
+# rspec ./spec/controllers/figures_controller_spec.rb --fail-fast

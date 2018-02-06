@@ -1,25 +1,34 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+</head>
+<body>
 
-    <h2>Edit Landmark</h2>
+  <h2>Edit Landmark</h2>
 
-    <form action="/landmarks/<%=@landmark.id%>" method="post">
+  <%= @landmark.name %>
+  <%= @landmark.year_completed %>
 
-      <label for="name">Landmark Name</label>
-      <input type="text" name="landmark[name]" id="landmark_name">
-      <br>
+  <form action="landmarks/<%=@landmark.id%>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
 
-      <label for="year">Year Completed</label>
-      <input id= "landmark_year_completed%>" type="text" name="landmark[year_completed]" >
+    <label for=""> Landmark Name </label>
+    <input type="text" name="landmark[name]" id="landmark_name" value="<%=@landmark.name%>">
+    <br>
 
-      <input type="submit"  value="Create New Landmark">
+    <label for="year"> Landmark Year Completed </label>
+    <input id= "landmark_year_completed" type="text" name="landmark[year_completed]" value="<%=@landmark.year_completed%>"><br>
 
-    </form>
+    <label for="">Select From Existing Figures</label><br>
 
-  </body>
+    <% Figure.all.each do |figure| %>
+      <input type="radio" name="landmark[figure_id]" value="<%=figure.id%>" id="figure_<%=figure.id%>"><%= figure.name %></input><br>
+    <% end %>
+
+    <label for="">New Figure: </label><br>
+    <input type="text" name="figure[name]" id="new_figure">
+    <br>
+
+    <input type="submit"  value="Edit New Landmark">
+
+  </form>
+
+</body>
 </html>

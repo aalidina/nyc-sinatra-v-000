@@ -1,16 +1,19 @@
 require 'pry'
 class FiguresController < ApplicationController
-  get '/figures' do
-    erb :'/figures/index'
-  end
 
-  get '/figures/new' do
-    erb :'/figures/new'
-  end
+  get '/figures' do
+    @figures = Figure.all
+   erb :'/figures/index'
+ end
+
+ get '/figures/new' do
+   erb :'/figures/new'
+ end
 
   post '/figures' do
 
     @figures = Figure.create(params["figure"])
+
 
     if !params["title"]["name"].empty?
       @figures.titles << Title.create(params["title"])
@@ -27,16 +30,30 @@ class FiguresController < ApplicationController
 
   get '/figures/:id' do
     @figures = Figure.find(params[:id])
-    erb :'figures/show'
+    erb :'/figures/show'
   end
 
   get '/figures/:id/edit' do
     @figures = Figure.find(params[:id])
-    erb :'figures/edit'
+    erb :'/figures/edit'
   end
 
+  post '/figures/:id' do
 
+    figure = Figure.find(params[:id])
+    figure.update(params[:figure])
+
+    if !params[:title][:name].empty?
+      figure.titles << Title.create(params[:title])
+    elsif !params[:landmark][:name].empty?
+      figure.landmarks << Landmark.create(params[:landmark])
+    end
+
+    redirect "/figures/#{figure.id}"
+
+  end
 
 end
 
 #rspec ./spec/controllers/figures_controller_spec.rb --fail-fast
+#rspec ./spec/controllers/landmarks_controller_spec.rb --fail-fast
