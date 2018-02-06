@@ -14,7 +14,7 @@ class LandmarksController < ApplicationController
     if !params["figure"]["name"].empty?
       @landmark.figure = Figure.create(params["figure"])
     end
-    
+
      redirect "/landmarks/#{@landmark.id}"
   end
 
@@ -40,4 +40,4 @@ class LandmarksController < ApplicationController
 end
 
 
-# rspec ./spec/controllers/figures_controller_spec.rb --fail-fast
+# rspec ./spec/controllers/landmarks_controller_spec.rb --fail-fast
