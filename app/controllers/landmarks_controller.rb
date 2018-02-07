@@ -2,7 +2,7 @@ require 'pry'
 class LandmarksController < ApplicationController
 
   get '/landmarks' do
-    @landmark = Landmark.all
+    @landmarks = Landmark.all
     erb :'/landmarks/index'
   end
 
@@ -36,7 +36,7 @@ class LandmarksController < ApplicationController
     @landmark.year_completed = params["landmark"]["year_completed"]
     @landmark.save
 
-    redirect "/landmarks/#{@landmark.id}"
+    redirect to "/landmarks/#{@landmark.id}"
   end
 end
 
